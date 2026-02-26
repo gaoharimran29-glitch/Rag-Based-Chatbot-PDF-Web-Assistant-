@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  pdf_summarizer:
+    build: .
+    container_name: pdf_summarizer
+    ports:
+      - "127.0.0.1:8501:8501"
+
+    shm_size: "2gb"
+
+    deploy:
+      resources:
+        limits:
+          memory: 6g
+        reservations:
+          memory: 3g
+
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
+    restart: unless-stopped

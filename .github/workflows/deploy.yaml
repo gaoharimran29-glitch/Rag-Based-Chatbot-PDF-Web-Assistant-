@@ -1,0 +1,46 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t pdf-app .
+
+    - name: Save Docker image
+      run: docker save pdf-app | gzip > pdf-app.tar.gz
+
+    - name: Copy image to EC2
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        source: "pdf-app.tar.gz"
+        target: "/home/ubuntu/"
+
+    - name: Deploy on EC2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker stop pdf-app || true
+          docker rm pdf-app || true
+          docker load < pdf-app.tar.gz
+          docker run -d \
+            -p 8501:8501 \
+            --name pdf-app \
+            -e HF_TOKEN=${{ secrets.HF_TOKEN }} \
+            -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} \
+            pdf-app

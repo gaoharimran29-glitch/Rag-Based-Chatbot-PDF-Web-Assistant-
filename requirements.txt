@@ -1,0 +1,26 @@
+streamlit==1.54.0
+
+# LangChain core ecosystem (v1.x modular)
+langchain==1.2.10
+langchain-core==1.2.14
+langchain-community==0.4.1
+langchain-text-splitters==1.1.1
+langchain-groq==1.1.2
+langchain-huggingface==1.2.0
+
+# Vector store
+faiss-cpu==1.13.2
+
+# Document loaders
+pypdf==6.7.1
+docx2txt==0.9
+unstructured==0.18.32
+python-pptx==1.0.2
+pillow==12.1.1
+pdfminer.six==20260107
+
+# Web loaders
+beautifulsoup4==4.14.3
+requests==2.32.5
+selenium==4.41.0
+sympy==1.14.0
