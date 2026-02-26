@@ -9,7 +9,7 @@ on:
       - 'app.py'
       - 'Dockerfile'
       - 'requirements.txt'
-      - '.github/workflows/deploy.yml'
+      - '.github/workflows/deploy.yaml'
       - 'docker-compose.yml'
 
 jobs:
