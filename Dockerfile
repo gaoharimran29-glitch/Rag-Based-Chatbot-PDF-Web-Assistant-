@@ -37,7 +37,8 @@ ENV TF_ENABLE_ONEDNN_OPTS=0
 WORKDIR /app
 
 # Install ONLY runtime system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -o Acquire::Retries=3 && \
+    apt-get install -y --no-install-recommends \
     chromium \
     chromium-driver \
     fonts-liberation \
@@ -53,8 +54,8 @@ RUN apt-get update && apt-get install -y \
     libmagic1 \
     poppler-utils \
     tesseract-ocr \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    --fix-missing && \
+    rm -rf /var/lib/apt/lists/*
 
 # Selenium paths
 ENV CHROME_BIN=/usr/bin/chromium
