@@ -2,6 +2,11 @@
 
 Access the site at :- https://imranx.dpdns.org
 
+## Project Site Image
+
+![Project image](Rag_Project_image.png)
+
+
 A production-ready **RAG Based AI-powered PDF Summarizer** built with:
 
 - 🧠 Hugging Face API For Embeddings
