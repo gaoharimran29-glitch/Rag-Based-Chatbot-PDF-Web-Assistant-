@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+    paths:
+      - 'app.py'
+      - 'Dockerfile'
+      - 'requirements.txt'
+      - '.github/workflows/deploy.yml'
+      - 'docker-compose.yml'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
